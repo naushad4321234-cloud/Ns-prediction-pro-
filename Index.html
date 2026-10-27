@@ -1,4 +1,70 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NS Prediction Pro</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080d1b;color:white;font-family:Arial,sans-serif}
+header{padding:24px 15px;text-align:center;background:#111b35;border-bottom:2px solid #00e5ff}
+h1{color:#00e5ff;margin:0;font-size:28px}
+header p{color:#b9c8e8}
+main{max-width:600px;margin:auto;padding:18px}
+.card{background:#121d36;border:1px solid #263b61;border-radius:16px;padding:20px;margin-bottom:18px}
+h2{color:#00e5ff;margin-top:0}
+button{background:#00e5ff;color:#07101e;border:0;padding:13px 18px;border-radius:9px;font-weight:bold;cursor:pointer;margin:5px 0}
+.result{font-size:48px;font-weight:bold;color:#00e5ff;text-align:center;padding:15px}
+input{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #456080;background:#080d1b;color:white}
+.small{color:#b9c8e8;font-size:13px;line-height:1.6}
+footer{text-align:center;padding:20px;color:#9aaccb}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<header>
+<h1>NS PREDICTION PRO</h1>
+<p>Your Number Demo & Control Center</p>
+</header>
+<main>
+<section class="card">
+<h2>🎯 Number Demo</h2>
+<p>Generate a random number for entertainment.</p>
+<div class="result" id="result">--</div>
+<button onclick="generate()">Generate Number</button>
+<p class="small">This is a random demo only. It cannot predict real game results or guarantee winnings.</p>
+</section>
+
+<section class="card">
+<h2>📊 Latest Demo Result</h2>
+<p id="latest">No number generated yet.</p>
+</section>
+
+<section class="card">
+<h2>🔐 Admin Demo</h2>
+<p class="small">This is a local design demo, not a secure login system.</p>
+<input id="noticeInput" placeholder="Enter a website notice">
+<button onclick="saveNotice()">Update Demo Notice</button>
+<p id="notice">Welcome to NS Prediction Pro!</p>
+</section>
+</main>
+<footer>NS Prediction Pro · Demo Version</footer>
+<script>
+function generate(){
+const n=Math.floor(Math.random()*10);
+document.getElementById('result').textContent=n;
+document.getElementById('latest').textContent='Latest demo number: '+n;
+}
+function saveNotice(){
+const value=document.getElementById('noticeInput').value.trim();
+if(value){
+document.getElementById('notice').textContent=value;
+document.getElementById('noticeInput').value='';
+}
+}
+</script>
+</body>
+</html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
