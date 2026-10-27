@@ -62,3 +62,69 @@ document.getElementById('notice').textContent=value;
 document.getElementById('noticeInput').value='';
 }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NS Prediction Pro</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080d19;color:#fff;font-family:Arial,sans-serif}
+header{text-align:center;padding:25px 12px;background:#121e39;border-bottom:2px solid #00e5ff}
+h1{margin:0;color:#00e5ff;font-size:27px}
+header p{color:#c2d1ee}
+main{max-width:600px;margin:auto;padding:16px}
+.card{background:#121e39;border:1px solid #2a4268;border-radius:16px;padding:20px;margin-bottom:18px}
+h2{color:#00e5ff;margin-top:0}
+button{border:0;border-radius:9px;padding:13px 16px;background:#00e5ff;color:#07101b;font-weight:bold;width:100%;margin-top:10px}
+.result{font-size:50px;text-align:center;color:#00e5ff;font-weight:bold;padding:16px}
+input{width:100%;padding:12px;margin-top:8px;border-radius:8px;border:1px solid #456080;background:#080d19;color:white}
+.note{font-size:13px;color:#b8c8e8;line-height:1.6}
+footer{text-align:center;padding:20px;color:#9eb0d1}
+</style>
+</head>
+<body>
+<header>
+<h1>NS PREDICTION PRO</h1>
+<p>Number Demo & Control Center</p>
+</header>
+<main>
+<section class="card">
+<h2>🎯 Random Number Demo</h2>
+<p>Try the number generator for fun.</p>
+<div class="result" id="result">--</div>
+<button onclick="generateNumber()">Generate Number</button>
+<p class="note">Numbers are generated randomly. They do not predict real game outcomes or guarantee winnings.</p>
+</section>
+
+<section class="card">
+<h2>📊 Latest Result</h2>
+<p id="latest">No demo number generated yet.</p>
+</section>
+
+<section class="card">
+<h2>📢 Website Notice</h2>
+<p id="notice">Welcome to NS Prediction Pro!</p>
+<input id="noticeInput" placeholder="Type a new notice">
+<button onclick="updateNotice()">Update Notice (Demo)</button>
+<p class="note">This demo notice only changes on this page and is not saved for other visitors.</p>
+</section>
+</main>
+<footer>NS Prediction Pro · Demo Version</footer>
+<script>
+function generateNumber(){
+const n=Math.floor(Math.random()*10);
+document.getElementById("result").textContent=n;
+document.getElementById("latest").textContent="Latest demo number: "+n;
+}
+function updateNotice(){
+const value=document.getElementById("noticeInput").value.trim();
+if(value){
+document.getElementById("notice").textContent=value;
+document.getElementById("noticeInput").value="";
+}
+}
+</script>
+</body>
+</html>
