@@ -80,14 +80,12 @@ document.getElementById("result").innerHTML=
 </div>
 
 <script>
-function login(){
-  document.getElementById('dashboard').style.display='block';            
+ function login(){
 if(document.getElementById('admin').value==='admin' &&
 document.getElementById('pass').value==='1234'){
 document.getElementById('msg').innerText='Login Successful';
+document.getElementById('dashboard').style.display='block';
 }else{
 document.getElementById('msg').innerText='Wrong Login';
 }
-}
-</script>
-</html>
+ }
