@@ -16,7 +16,17 @@ h1{color:#00e6aa}
 <body>
 <h2>ADMIN DASHBOARD</h2>
 <div class="box" id="dashboard" style="display:none">
-<p>Welcome Admin</p>
+<p>Welcome Admin</p><h3>Website Notice</h3>
+<input id="noticeText" placeholder="Notice likho">
+<button onclick="saveNotice()">Save Notice</button>
+<p id="showNotice"></p>
+
+<script>
+function saveNotice(){
+let n=document.getElementById('noticeText').value;
+document.getElementById('showNotice').innerText=n;
+}
+</script>
 <button onclick="alert('1 Minute Selected')">1 Minute</button>
 <button onclick="alert('5 Minutes Selected')">5 Minutes</button>
 <p>JAI CLUB ADMIN PANEL</p>
