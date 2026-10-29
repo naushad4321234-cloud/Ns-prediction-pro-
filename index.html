@@ -13,7 +13,8 @@ h1{color:#00e6aa}
 .result{font-size:22px;margin:20px}
 </style>
 </head>
-<body><div class="box" id="dashboard">
+<body><div class="box" id="dashboard"
+        >style="display:none"
 <h2>ADMIN DASHBOARD</h2>
 <p>Welcome Admin</p>
 <button onclick="alert('1 Minute Selected')">1 Minute</button>
@@ -52,6 +53,7 @@ document.getElementById("result").innerHTML=
 
 <script>
 function login(){
+  document.getElementById('dashboard').style.display='block';            
 if(document.getElementById('admin').value==='admin' &&
 document.getElementById('pass').value==='1234'){
 document.getElementById('msg').innerText='Login Successful';
