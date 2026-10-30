@@ -1,77 +1,47 @@
-
-  
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>JAI CLUB ADMIN</title>
-
 <style>
 *{box-sizing:border-box}
 body{
-margin:0;
-background:#071426;
-color:white;
-font-family:Arial,sans-serif;
+margin:0;background:#071426;color:white;
+font-family:Arial,sans-serif;padding:15px
 }
 .header{
-background:#102b49;
-padding:20px;
-text-align:center;
-border-bottom:2px solid #00d99a;
+text-align:center;background:#102b49;
+padding:15px;border-radius:12px
 }
 .box{
-background:#142d49;
-padding:20px;
-margin:18px auto;
-width:92%;
-max-width:450px;
-border-radius:14px;
-box-shadow:0 4px 15px #0005;
+max-width:450px;margin:18px auto;
+padding:20px;background:#142d49;
+border-radius:14px
 }
-h2,h3{text-align:center}
-input,select{
-width:100%;
-padding:14px;
-margin:9px 0;
-border:0;
-border-radius:7px;
-font-size:16px;
+input,button{
+width:100%;padding:14px;margin:8px 0;
+border:0;border-radius:7px
 }
 button{
-width:100%;
-padding:14px;
-margin:9px 0;
-background:#00d99a;
-color:#071426;
-font-weight:bold;
-border:0;
-border-radius:7px;
-font-size:16px;
-cursor:pointer;
+background:#00d99a;color:#071426;
+font-weight:bold;font-size:16px
 }
-button:active{background:#00a979}
 #dashboard{display:none}
+.period{
+text-align:center;background:#071426;
+padding:15px;border-radius:10px;
+font-size:19px
+}
+#timer{color:#00e5a1;font-size:30px}
 #result{
-background:#071426;
-padding:18px;
-margin-top:15px;
-border-radius:9px;
-text-align:center;
-line-height:2;
+background:#071426;padding:15px;
+border-radius:10px;text-align:center;
+line-height:2;margin-top:12px
 }
-li{
-padding:10px;
-border-bottom:1px solid #ffffff22;
-}
-.notice{
-color:#00e5a1;
-text-align:center;
-}
+li{padding:10px;border-bottom:1px solid #555}
 </style>
 </head>
-
 <body>
 
 <div class="header">
@@ -81,7 +51,7 @@ text-align:center;
 
 <div class="box" id="loginBox">
 <h2>ADMIN LOGIN</h2>
-<input id="admin" type="text" placeholder="Username">
+<input id="admin" placeholder="Username">
 <input id="pass" type="password" placeholder="Password">
 <button type="button" id="loginBtn">LOGIN</button>
 <p id="msg"></p>
@@ -91,139 +61,121 @@ text-align:center;
 
 <div class="box">
 <h2>WELCOME ADMIN</h2>
-<button type="button" id="logoutBtn">LOGOUT</button>
+<button id="logoutBtn">LOGOUT</button>
+</div>
+
+<div class="box">
+<h3>LIVE PERIOD NUMBER</h3>
+<div class="period">
+<div id="period">Loading...</div>
+<div id="timer">00:00</div>
+</div>
 </div>
 
 <div class="box">
 <h3>WEBSITE NOTICE</h3>
-<input id="notice" placeholder="Write website notice">
-<button type="button" id="saveNotice">SAVE NOTICE</button>
-<p class="notice" id="noticeDisplay"></p>
+<input id="notice" placeholder="Enter notice">
+<button id="saveNotice">SAVE NOTICE</button>
+<p id="noticeDisplay"></p>
 </div>
 
 <div class="box">
 <h3>NUMBER ANALYSIS</h3>
-
-<select id="period">
-<option value="1 Minute">1 Minute</option>
-<option value="5 Minutes">5 Minutes</option>
-</select>
-
-<button type="button" id="generateBtn">
-GENERATE ANALYSIS
-</button>
-
+<button id="generateBtn">GENERATE ANALYSIS</button>
 <div id="result">READY</div>
 </div>
 
 <div class="box">
 <h3>ANALYSIS HISTORY</h3>
 <ul id="history"></ul>
-<button type="button" id="clearHistory">CLEAR HISTORY</button>
 </div>
 
 </div>
 
 <script>
-"use strict";
+const $=id=>document.getElementById(id);
+let historyData=[];
 
-const $ = id => document.getElementById(id);
+function getPeriod(){
+const now=Date.now();
+const minute=Math.floor(now/60000);
+const date=new Date();
+const day=date.getFullYear().toString()+
+String(date.getMonth()+1).padStart(2,'0')+
+String(date.getDate()).padStart(2,'0');
 
-let historyData = [];
+return day+"1000"+String(minute).slice(-5);
+}
 
-$("loginBtn").addEventListener("click", function(){
+function updatePeriod(){
+const now=new Date();
+const seconds=now.getSeconds();
+$("period").textContent=getPeriod();
 
-const username = $("admin").value.trim();
-const password = $("pass").value;
+const remaining=59-seconds;
+$("timer").textContent=
+"00:"+String(remaining).padStart(2,'0');
+}
 
-if(username === "admin" && password === "1234"){
+setInterval(updatePeriod,1000);
+updatePeriod();
 
-$("loginBox").style.display = "none";
-$("dashboard").style.display = "block";
-$("msg").textContent = "";
-
+$("loginBtn").onclick=function(){
+if($("admin").value==="admin" &&
+$("pass").value==="1234"){
+$("loginBox").style.display="none";
+$("dashboard").style.display="block";
 }else{
-
-$("msg").textContent = "Wrong Username or Password";
-$("msg").style.color = "red";
-
+$("msg").textContent="Wrong Username or Password";
 }
+};
 
-});
+$("logoutBtn").onclick=function(){
+$("dashboard").style.display="none";
+$("loginBox").style.display="block";
+$("pass").value="";
+};
 
-$("logoutBtn").addEventListener("click", function(){
-$("dashboard").style.display = "none";
-$("loginBox").style.display = "block";
-$("pass").value = "";
-});
+$("saveNotice").onclick=function(){
+const value=$("notice").value.trim();
+$("noticeDisplay").textContent=value || "Enter a notice first";
+};
 
-$("saveNotice").addEventListener("click", function(){
+$("generateBtn").onclick=function(){
 
-const notice = $("notice").value.trim();
+const n=Math.floor(Math.random()*10);
 
-if(notice === ""){
-$("noticeDisplay").textContent = "Please enter a notice";
-return;
-}
+const color=[1,3,7,9].includes(n)
+?"GREEN":[2,4,6,8].includes(n)
+?"RED":"VIOLET";
 
-$("noticeDisplay").textContent = notice;
+const size=n>=5?"BIG":"SMALL";
+const period=getPeriod();
 
-});
+$("result").textContent=
+"Period: "+period+
+" | Number: "+n+
+" | Color: "+color+
+" | Size: "+size;
 
-$("generateBtn").addEventListener("click", function(){
+historyData.unshift(
+"Period: "+period+
+" | Number: "+n+
+" | "+color+
+" | "+size
+);
 
-const number = Math.floor(Math.random()*10);
+if(historyData.length>30)historyData.pop();
 
-const color = [1,3,7,9].includes(number)
-? "GREEN"
-: [2,4,6,8].includes(number)
-? "RED"
-: "VIOLET";
+$("history").innerHTML="";
 
-const size = number >= 5 ? "BIG" : "SMALL";
-
-const period = $("period").value;
-
-const result =
-"Number: " + number +
-"<br>Color: " + color +
-"<br>Size: " + size +
-"<br>Period: " + period;
-
-$("result").innerHTML = result;
-
-const historyText =
-"Number: " + number +
-" | " + color +
-" | " + size +
-" | " + period;
-
-historyData.unshift(historyText);
-
-showHistory();
-
-});
-
-function showHistory(){
-
-$("history").innerHTML = "";
-
-historyData.forEach(function(item){
-
-const li = document.createElement("li");
-li.textContent = item;
+historyData.forEach(item=>{
+const li=document.createElement("li");
+li.textContent=item;
 $("history").appendChild(li);
-
 });
 
-}
-
-$("clearHistory").addEventListener("click", function(){
-historyData = [];
-showHistory();
-$("result").textContent = "READY";
-});
-
+};
 </script>
 
 </body>
