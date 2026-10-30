@@ -1,91 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jai Club Analysis</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JAI CLUB ADMIN</title>
 <style>
-body{background:#101522;color:white;font-family:Arial;text-align:center;padding:20px}
-.box{background:#1d2738;padding:20px;border-radius:15px;max-width:400px;margin:auto}
-button,select{padding:12px;margin:8px;border:0;border-radius:8px;font-size:16px}
-button{background:#00c896;color:white}
-h1{color:#00e6aa}
-.result{font-size:22px;margin:20px}
+body {
+background:#071426;
+color:white;
+font-family:Arial;
+text-align:center;
+padding:20px;
+}
+.box {
+background:#132b45;
+padding:20px;
+margin:15px auto;
+border-radius:12px;
+max-width:400px;
+}
+input,select,button {
+padding:12px;
+margin:8px;
+border-radius:6px;
+border:0;
+}
+button {
+background:#00c98b;
+color:white;
+font-weight:bold;
+}
+#dashboard {display:none;}
 </style>
 </head>
 <body>
-<h2>ADMIN DASHBOARD</h2>
-<div class="box" id="dashboard" style="display:none">
-<p>Welcome Admin</p><h3>Website Notice</h3>
-<input id="noticeText" placeholder="Notice likho">
-<button onclick="saveNotice()">Save Notice</button>
-<p id="showNotice"></p>
-<h3>Analysis History</h3>
-<ul id="history">
-<li>No history yet</li>
-</ul>
 
-<script>
-function saveNotice(){
-let n=document.getElementById('noticeText').value;
-document.getElementById('showNotice').innerText=n;
-}
-</script>
-<button onclick="alert('1 Minute Selected')">1 Minute</button>
-<button onclick="alert('5 Minutes Selected')">5 Minutes</button>
-<p>JAI CLUB ADMIN PANEL</p>
+<div class="box" id="loginBox">
+<h2>JAI CLUB ADMIN</h2>
+<input id="admin" placeholder="Username">
+<br>
+<input id="pass" type="password" placeholder="Password">
+<br>
+<button onclick="login()">Login</button>
+<p id="msg"></p>
 </div>
+
+<div id="dashboard">
 <div class="box">
 <h1>JAI CLUB</h1>
 <h3>Number Analysis Tool</h3>
+
 <select id="period">
 <option value="1">1 Minute</option>
 <option value="5">5 Minutes</option>
 </select>
 <br>
+
 <button onclick="generate()">Generate Analysis</button>
-<div class="result" id="result">Ready</div>
-<p>Ye demo analysis hai. Real game results ki guarantee nahi hai.</p>
+<div id="result">Ready</div>
 </div>
-<script>
-let historyData = [];
-let n=Math.floor(Math.random()*10);
-let color=[1,3,7,9].includes(n)?"GREEN":[2,4,6,8].includes(n)?"RED":"VIOLET";
-let size=n>=5?"BIG":"SMALL";
-let period=document.getElementById("period").value;
 
-let result="Number: "+n+" | Color: "+color+" | Size: "+size+" | Period: "+period+" Minute";
-
-document.getElementById("result").innerHTML=result;
-
-historyData.unshift(result);
-
-document.getElementById("history").innerHTML=
-historyData.map(item=>"<li>"+item+"</li>").join("");
-  }
-let n=Math.floor(Math.random()*10);
-let color=[1,3,7,9].includes(n)?"GREEN":[2,4,6,8].includes(n)?"RED":"VIOLET";
-let size=n>=5?"BIG":"SMALL";
-document.getElementById("result").innerHTML=
-"Number: "+n+"<br>Color: "+color+"<br>Size: "+size+
-"<br>Period: "+document.getElementById("period").value+" Minute";
-}
-</script>
-</body><div class="box">
-<h2>ADMIN LOGIN</h2>
-<input id="admin" placeholder="Username">
-<input id="pass" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
-<p id="msg"></p>
+<div class="box">
+<h3>Analysis History</h3>
+<ul id="history"></ul>
+</div>
 </div>
 
 <script>
- function login(){
-if(document.getElementById('admin').value==='admin' &&
-document.getElementById('pass').value==='1234'){
-document.getElementById('msg').innerText='Login Successful';
-document.getElementById('dashboard').style.display='block';
+let historyData=[];
+
+function login(){
+if(document.getElementById("admin").value==="admin" &&
+document.getElementById("pass").value==="1234"){
+document.getElementById("loginBox").style.display="none";
+document.getElementById("dashboard").style.display="block";
 }else{
-document.getElementById('msg').innerText='Wrong Login';
+document.getElementById("msg").innerText="Wrong Login";
 }
- }
+}
+
+function generate(){
+let n=Math.floor(Math.random()*10);
+let color=[1,3,7,9].includes(n)?"GREEN":
+[2
