@@ -1,84 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JAI CLUB ADMIN</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAI CLUB ADMIN PANEL</title>
+
 <style>
 body {
-background:#071426;
-color:white;
-font-family:Arial;
-text-align:center;
-padding:20px;
+  margin:0;
+  padding:20px;
+  background:#071426;
+  color:white;
+  font-family:Arial,sans-serif;
 }
 .box {
-background:#132b45;
-padding:20px;
-margin:15px auto;
-border-radius:12px;
-max-width:400px;
+  max-width:420px;
+  margin:20px auto;
+  padding:20px;
+  background:#142b45;
+  border-radius:12px;
+  text-align:center;
 }
 input,select,button {
-padding:12px;
-margin:8px;
-border-radius:6px;
-border:0;
+  width:90%;
+  padding:13px;
+  margin:9px 0;
+  border:0;
+  border-radius:7px;
+  box-sizing:border-box;
 }
 button {
-background:#00c98b;
-color:white;
-font-weight:bold;
+  background:#00d49a;
+  color:#071426;
+  font-weight:bold;
+  cursor:pointer;
 }
 #dashboard {display:none;}
+#result {
+  padding:15px;
+  margin-top:15px;
+  background:#071426;
+  border-radius:8px;
+}
+li {
+  padding:8px;
+  text-align:left;
+}
 </style>
 </head>
+
 <body>
 
 <div class="box" id="loginBox">
-<h2>JAI CLUB ADMIN</h2>
+<h2>JAI CLUB</h2>
+<h3>ADMIN LOGIN</h3>
+
 <input id="admin" placeholder="Username">
-<br>
 <input id="pass" type="password" placeholder="Password">
-<br>
-<button onclick="login()">Login</button>
+
+<button type="button" onclick="login()">LOGIN</button>
 <p id="msg"></p>
 </div>
 
 <div id="dashboard">
+
 <div class="box">
 <h1>JAI CLUB</h1>
-<h3>Number Analysis Tool</h3>
-
-<select id="period">
-<option value="1">1 Minute</option>
-<option value="5">5 Minutes</option>
-</select>
-<br>
-
-<button onclick="generate()">Generate Analysis</button>
-<div id="result">Ready</div>
+<h3>ADMIN DASHBOARD</h3>
+<p>Welcome Admin</p>
+<button onclick="logout()">LOGOUT</button>
 </div>
 
 <div class="box">
-<h3>Analysis History</h3>
+<h3>WEBSITE NOTICE</h3>
+<input id="notice" placeholder="Enter website notice">
+<button onclick="saveNotice()">SAVE NOTICE</button>
+<p id="noticeDisplay"></p>
+</div>
+
+<div class="box">
+<h3>NUMBER ANALYSIS</h3>
+
+<select id="period">
+<option value="1 Minute">1 Minute</option>
+<option value="5 Minutes">5 Minutes</option>
+</select>
+
+<button onclick="generate()">GENERATE ANALYSIS</button>
+
+<div id="result">READY</div>
+</div>
+
+<div class="box">
+<h3>ANALYSIS HISTORY</h3>
 <ul id="history"></ul>
 </div>
+
 </div>
 
 <script>
-let historyData=[];
 
-function login(){
-if(document.getElementById("admin").value==="admin" &&
-document.getElementById("pass").value==="1234"){
-document.getElementById("loginBox").style.display="none";
-document.getElementById("dashboard").style.display="block";
-}else{
-document.getElementById("msg").innerText="Wrong Login";
-}
+function login() {
+  let user = document.getElementById("admin").value;
+  let password = document.getElementById("pass").value;
+
+  if(user === "admin" && password === "1234") {
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+    document.getElementById("msg").innerText = "";
+  } else {
+    document.getElementById("msg").innerText = "Wrong Username or Password";
+  }
 }
 
-function generate(){
-let n=Math.floor(Math.random()*10);
-let color=[1,3,7,9].includes(n)?"GREEN":
-[2
+function logout() {
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("loginBox").style.display = "block";
+}
+
+function saveNotice() {
+  let notice = document.getElementById("notice").value;
+  document.getElementById("noticeDisplay").innerText = notice;
+}
+
+let historyData = [];
+
+function generate() {
+  let n = Math.floor(Math.random() * 10);
+
+  let color = [1,3,7,9].includes(n) ? "GREEN" :
+              [2,4,6,8].includes(n) ? "RED" : "VIOLET";
+
+  let size = n >= 5 ? "BIG" : "SMALL";
+
+  let period = document.getElementById("period").value;
+
+  let result = "Number: " + n +
+               " | Color: " + color +
+               " | Size: " + size +
+               " | " + period;
+
+  document.getElementById("result").innerText = result;
+
+  historyData.unshift(result);
+
+  document.getElementById("history").innerHTML =
+    historyData.map(item => "<li>" + item + "</li>").join("");
+}
+
+</script>
+</body>
+</html>
